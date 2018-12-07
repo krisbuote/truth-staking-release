@@ -1,9 +1,7 @@
 # Truth Staking
+### Crowdsourcing the Truth
 
-
-# Crow Truth Staking DApp
-
-A decentralized application that allows the crowd to stake money on the truthfulness of claims made by the media.
+Stake money on the truthfulness of claims made by the media.
 
 --- WORK IN PROGRESS ---
 
