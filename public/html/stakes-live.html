@@ -100,7 +100,7 @@
           <h2 class="text-center display-4">Submit New Claim</h2>
           <p class="text-center">earn double the reward for submitting a new claim</p>
           <br/>
-          <form netlify onSubmit="App.makeNewStatement(newStatementString, newStatementPosition, newStatementStakingPeriod, newStatementSource, newStatementStakeValue); return false;">
+          <form onSubmit="App.makeNewStatement(newStatementString, newStatementPosition, newStatementStakingPeriod, newStatementSource, newStatementStakeValue); return false;">
             <div class="text-right">
               <div class="form-group row">
                 <label for="newStatementString" class="col-3 col-form-label">Paste new statement: </label>
@@ -205,9 +205,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/appLiveDataTable.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/web3.min.js"></script>
+    <script src="../js/appLiveDataTable.js"></script>
 
     <!-- Data Table -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -217,6 +217,6 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="js/grayscale.min.js"></script>
+    <script src="../js/grayscale.min.js"></script>
   </body>
 </html>
