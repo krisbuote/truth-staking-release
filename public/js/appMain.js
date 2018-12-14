@@ -23,7 +23,6 @@ App = {
 
 	initWeb3: function() {
 
-	    // TODO: refactor conditional
 	    if (typeof web3 !== 'undefined') {
 	      // If a web3 instance is already provided by Meta Mask.
 	      App.web3Provider = web3.currentProvider;
@@ -39,51 +38,9 @@ App = {
 	initContract: function() {
 
 		App.truthStakingContract = web3.eth.contract(contractABI);
-		App.listenForEvents();
 
 		return App.render();
 	},
-
-
-	listenForEvents: function() {
-		
-		var contractInstance = App.truthStakingContract.at(contractAddress);
-
-		var newStakeEvent = contractInstance.NewStake();
-		newStakeEvent.watch(function(error, result) {
-			if (!error) {
-				// Do something
-				console.log(result);
-				var statementID = result.args.statementID;
-			}
-			else {
-				console.error(err);
-			}
-		});
-
-
-		var newStatementEvent = contractInstance.NewStatement();
-		newStatementEvent.watch(function(error, result) {
-			if (!error) {
-				// Do something
-				var statementID = result.args.statementID;
-				var statementText = result.args.statement;
-			}
-			else {
-				console.error(err);
-			}
-		});
-
-
-		// Or pass a callback to start watching immediately
-		var events = contractInstance.allEvents(function(error, log){
-
-			if (!error)
-		 		console.log("allEvents success")
-		    	console.log(log);
-		});
-	},
-
 
 
 	render: function() {
@@ -108,7 +65,6 @@ App = {
 		// Display the total Ether staked so far
 		contractInstance.absEthStaked(function(error, absEthStaked) {
 		   if(!error) {
-		   		console.log('absEth', absEthStaked);
       			$("#absEthStaked").html((absEthStaked.toNumber()/10**18).toFixed(1));
 			}
 		   else {
@@ -132,25 +88,18 @@ App = {
 		// Build popular stakes out of live statements
 		contractInstance.absNumStatements(function(error, _numStatements){ 
 
-
 			if(!error) {
+
 				var numStatements = _numStatements.toNumber();
 				$("#absNumStatements").html(numStatements);
 
-
 				App.allStatementsArray = [];
-				console.log("numStatements:",numStatements);
 
 				for (var i = 0; i < numStatements; i++) {
 
 					App.getStatementDataAndDisplayPopularStakes(i, numStatements, contractInstance);
 
 				}
-
-			var end = new Date().getTime();
-			var elapsed = end - start;
-			console.log("Statement Data Load Time: " + elapsed);
-			// For 10 statements: 140-240 ms.
 
 			}
 
@@ -176,7 +125,6 @@ App = {
 
 				if (App.allStatementsArray.length == _numStatements) {
 					App.displayPopularStakes(); // If all statements collected, build data table
-					// App.displayPastDataTable();
 				}
 
 			}
@@ -527,14 +475,6 @@ App = {
 }
 
 
-
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-  }
-}
 
 
 $(function() {

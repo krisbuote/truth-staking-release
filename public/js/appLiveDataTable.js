@@ -41,61 +41,14 @@ App = {
 	initContract: function() {
 
 		App.truthStakingContract = web3.eth.contract(contractABI);
-		App.listenForEvents();
 
 		return App.render();
 	},
-
-
-	listenForEvents: function() {
-		
-		var contractInstance = App.truthStakingContract.at(contractAddress);
-
-		var newStakeEvent = contractInstance.NewStake();
-		newStakeEvent.watch(function(error, result) {
-			if (!error) {
-				// Do something
-				console.log(result);
-				console.log(" stakeEvent 1 success");
-				var statementID = result.args.statementID;
-			}
-			else {
-				console.error(err);
-			}
-		});
-
-
-		var newStatementEvent = contractInstance.NewStatement();
-		newStatementEvent.watch(function(error, result) {
-			if (!error) {
-				// Do something
-				var statementID = result.args.statementID;
-				var statementText = result.args.statement;
-				console.log("newStatementEvent WORKED! statementID: ", statementID);
-			}
-			else {
-				console.error(err);
-			}
-		});
-
-
-		// Or pass a callback to start watching immediately
-		var events = contractInstance.allEvents(function(error, log){
-
-			if (!error)
-		 		console.log("allEvents success")
-		    	console.log(log);
-		});
-	},
-
-
 
 	render: function() {
 
 	    $("#loader").show();
 	    $("#blockchain-content").hide();
-
-
 
 	    // Load account data
 	    web3.eth.getCoinbase(function(err, account) {
@@ -111,7 +64,6 @@ App = {
 		// Display the total Ether staked so far
 		contractInstance.absEthStaked(function(error, absEthStaked) {
 		   if(!error) {
-		   		console.log('absEth', absEthStaked);
       			$("#absEthStaked").html((absEthStaked.toNumber()/10**18).toFixed(3));
 			}
 		   else {
@@ -119,7 +71,6 @@ App = {
 			}
 		});
 
-		var start = new Date().getTime();
 
 		// Build data table out of live statements
 		contractInstance.absNumStatements(function(error, _numStatements){ 
@@ -128,14 +79,10 @@ App = {
 				var numStatements = _numStatements.toNumber();
 
 				App.allStatementsArray = [];
-				console.log(numStatements);
 
 				for (var i = 0; i < numStatements; i++) {
-
 					App.getStatementDataAndBuildLiveTable(i, numStatements, contractInstance);
-
 				}
-
 			}
 
 			else {
@@ -186,8 +133,7 @@ App = {
 			var ethStaked = ((statement[6] / 10**18).toFixed(3));
 			var stakeEnded = statement[7];
 			var statementSource = statement[8];
-
-			
+	
 
 			if (!stakeEnded) {
 				liveEthSum += Number(ethStaked);
