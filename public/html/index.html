@@ -11,20 +11,20 @@
     <title>Truth Staking</title>
 
     <!-- Bootstrap -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
 
     <!-- Data Table CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
 
     <!-- Custom Grayscale -->
-    <link href="../css/custom-grayscale.css" rel="stylesheet">
+    <link href="../css/custom-truth-staking.css" rel="stylesheet">
+    <!-- <link href="../vendor/grayscale/css/grayscale.min.css" rel="stylesheet"> -->
 
   </head>
 
@@ -33,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="../img/crow.svg" class="img-fluid" alt="Crow Truth Staking">TS</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><i class="fas fa-crow">TS</i></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fas fa-bars"></i>
@@ -74,7 +74,7 @@
 
 
     <!-- About Section -->
-    <section id="about" class="about-section text-center">
+    <section id="about" class="info-section text-center">
       <div class="container">
 
         <div class="row">
@@ -87,8 +87,9 @@
               <h3 id="absNumStatements"></h3>
               <h4 class="font-weight-light text-white-50">claims</h4>
             </div>
-            <p class="text-white">Stake ether on claims made by the media. If your peers agree with you, you win.</p>
-            <p class="text-white">Larger stakes earn bigger rewards.</p>
+            <div>
+              <p class="text-white">Stake ether on claims made by the media. If your peers agree with you, you win.</br>Larger stakes earn bigger rewards.</p>
+            </div>
             <a href="#live-stakes" class="btn btn-primary js-scroll-trigger">View Stakes</a>
           </div>
         </div>
@@ -118,7 +119,7 @@
             <br/>
 
             <div>
-              <a href="./stakes/live" class="btn btn-secondary">See all live stakes </a>
+              <a href="./stakes/live" class="btn btn-secondary">View live stakes</a>
             </div>
           </div>
         </div>
@@ -137,7 +138,7 @@
           
             <br/>
             <div>
-              <a href="./stakes/history" class="btn btn-secondary">See all past stakes </a>
+              <a href="./stakes/history" class="btn btn-secondary">View stake history</a>
             </div>
           </div>
 
@@ -155,12 +156,12 @@
         <form onSubmit="App.makeNewStatement(newStatementString, newStatementPosition, newStatementStakingPeriod, newStatementSource, newStatementStakeValue); return false;">
           <div class="text-right">
             <div class="form-group row">
-              <label for="newStatementString" class="col-3 col-form-label">Paste new statement: </label>
-              <textarea class="form-control col-9" id="newStatementString" rows="2"></textarea>
+              <label for="newStatementString" class="col-sm-3 col-form-label">Paste new statement: </label>
+              <textarea class="form-control col-sm-9" id="newStatementString" rows="2"></textarea>
               <!-- <input type="text" class="form-control" id="newStatementString" placeholder="This sentence is false."/> -->
             </div>
             <div class="form-group row">
-                <label for="newStatementPosition" class="col-3 col-form-label">The above statement is </label>
+                <label for="newStatementPosition" class="col-sm-3 col-form-label">The above statement is </label>
               <div class="btn-group btn-group-toggle" data-toggle="buttons" role="group" aria-label="Center Align">
                 <label button class="btn btn-light">
                   <input type="radio" id="newStatementPositionTrue" value="1" name="newStatementPosition">True
@@ -171,26 +172,26 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="newStatementStakeValue" class="col-3 col-form-label"">First Stake: </label>
-              <div class="col-2">
+              <label for="newStatementStakeValue" class="col-sm-3 col-form-label"">First Stake: </label>
+              <div class="col-sm-3">
                 <input class="form-control text-center" type="number" id="newStatementStakeValue" placeholder="0.750 ether" step="0.000001"/>
               </div>
             </div>
             <div class="form-group row">
-              <label for="newStatementStakingPeriod" class="col-3 col-form-label">Staking period (days): </label>
-              <div class="col-2">
+              <label for="newStatementStakingPeriod" class="col-sm-3 col-form-label">Staking period (days): </label>
+              <div class="col-sm-2">
                 <input class="form-control text-center" type="number" id="newStatementStakingPeriod" placeholder="7 days"/>
               </div>
             </div>
             <div class="form-group row">
-              <label for="newStatementSource" class="col-3 col-form-label"">Statement source: </label> 
-              <div class="col-4">
+              <label for="newStatementSource" class="col-sm-3 col-form-label"">Statement source: </label> 
+              <div class="col-sm-4">
                 <input class="form-control text-center" type="text" id="newStatementSource" placeholder="www.newyorktimes.com"/>
               </div>
             </div>
 
           </div>
-          <div class="col-md-12 text-center"> 
+          <div class="col-sm-12 text-center"> 
             <button type="submit" class="btn btn-primary float-right">Submit</button>
           </div>
         </form>
@@ -240,12 +241,12 @@
     </footer>
 
     <!--JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/web3.min.js"></script>
-    <script src="../js/appMain.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../vendor/web3/js/web3.min.js"></script>
+    <script src="../vendor/grayscale/js/grayscale.min.js"></script>
 
     <!-- Data Table -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -254,7 +255,8 @@
     <!-- Plugin JavaScript -->
     <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for this template -->
-    <script src="../js/grayscale.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="../js/appMain.js"></script>
+
   </body>
 </html>
