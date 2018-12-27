@@ -317,8 +317,8 @@ App = {
 		                <div class="card-header bg-transparent text-center" id="cardHeading${statementID}" data-toggle="collapse" data-target="#cardBodyCollapse${statementID}" aria-expanded="false" aria-controls="collapse${statementID}">
 		                    <button class="btn-default border-0 bg-light">
 		                    	<abbr class="text-center lead text-primary">${ethStaked} eth</abbr>
-		                      	<p class="font-weight-light">${statementText}</p>
-		                      	<p class="font-weight-light">Verdict: ${verdict}</p>
+			                    <p class="stake-table-statement font-weight-light lead">${statementText}</p>
+			                    <p class="">Verdict: <b>${verdict}</b></p>
 		                    </button>
 		                </div>
 
@@ -410,7 +410,7 @@ App = {
 	    var stakeValue = _stakeValue.value;
 
 	    if (!App.account) {
-	    	alert("Please sign into MetaMask and refresh the page.");
+	    	alert("Truth Staking uses MetaMask to secure your transactions. Please install MetaMask from https://metamask.io/ \n\nIf you have MetaMask installed, please sign in and refresh the page.");
 	    }
 
 	    else if (!stakePosition) {
