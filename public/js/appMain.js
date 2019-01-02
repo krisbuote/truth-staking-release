@@ -318,9 +318,27 @@ App = {
 												${stakeButtonHTML}
 											</div>
 										</div>
+
+										<div class="modal fade text-dark" tabindex="-1" role="dialog" id="stakeSubmitModal${statementID}">
+										  <div class="modal-dialog" role="document">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h4 class="modal-title">Success!</h4>
+										      </div>
+										      <div id="stakeSubmitModal${statementID}Body" class="modal-body">
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+										      </div>
+										    </div><!-- /.modal-content -->
+										  </div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
+
+										
 									</div>
 
 					            </form>
+					            
 					            <br/>
 
 			                  	<div class="text-center my-auto">
@@ -425,7 +443,9 @@ App = {
 			var contractInstance = App.truthStakingContract.at(contractAddress);
 			contractInstance.newStatement(newStatementString, newStatementPosition, newStatementStakingPeriod, newStatementSource, txObject, function(err, result) {
 				if(!err) {
-					alert("Success! tx hash:", result)
+					console.log("makeNewStatement() Success! tx hash:", result);
+					var modalID = '#statementSubmitModal';
+		    		App.statementSuccessTxHash(modalID, result);
 				}
 				else {
 					console.error(err);
@@ -462,8 +482,8 @@ App = {
 			var contractInstance = App.truthStakingContract.at(contractAddress);
 		    contractInstance.stake.sendTransaction(statementIdToStake, stakePosition, txObject, function(error, result) {
 		    	if(!error) {
-		    		console.log('makeStake() success: ',result);
-		    		App.successTxHash(result);
+		    		var modalID = '#stakeSubmitModal' + String(_statementID);
+		    		App.stakeSuccessTxHash(modalID, result);
 		    	}
 
 		    	else {
@@ -505,11 +525,35 @@ App = {
 		return dDisplay + hDisplay + mDisplay;
 	},
 
-	successTxHash: function(tx) {
-		var s = "Success! tx hash: " + String(tx);
-		alert(s);
-	}
+	stakeSuccessTxHash: function(_modalID, tx) {
+		var url = "https://etherscan.io/tx/" + String(tx);
+		var s = "View your transaction on the blockchain <a href=" + url + " target='_blank'>here</a>"
+		var modalBody = _modalID + 'Body';
 
+		$(modalBody).html(s);
+
+	  	$(_modalID).modal('show');
+
+	  	$(_modalID).on('hidden.bs.modal', function () {
+		 location.reload();
+		})
+
+	},
+
+	statementSuccessTxHash: function(_modalID, tx) {
+		var url = "https://etherscan.io/tx/" + String(tx);
+		var s = "View your transaction on the blockchain <a href=" + url + " target='_blank'>here</a>"
+		var modalBody = _modalID + 'Body';
+
+		$(modalBody).html(s);
+
+	  	$(_modalID).modal('show');
+
+	  	$(_modalID).on('hidden.bs.modal', function () {
+		 location.reload();
+		})
+
+	}
 
 }
 
