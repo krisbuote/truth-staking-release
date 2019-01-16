@@ -89,6 +89,8 @@ App = {
 
 		});
 
+
+
 		
 	
 	},
@@ -203,9 +205,14 @@ App = {
 			// Value in USD
 			if (App.priceUSD == null) {
 				var valueUSD = '';
+				var USDequivalentHTML = '';
+
+
 			}
 			else {
 				var valueUSD = '($' + Math.round(App.priceUSD*ethStaked) + ')';
+				var USDequivalentHTML = `<input type="hidden" id="priceUSD" name="priceUSD" value="${Math.round(App.priceUSD)}">
+										($<output name="USDequivalent${statementID}" id="USDequivalent${statementID}" for="priceUSD stakeValue${statementID}">0</output>)`
 			}
 
 			// Show top card expanded on load
@@ -214,7 +221,8 @@ App = {
 				showCollapse = "show";
 			}
 			
-			var html = App.collapsingCardHTMLformatLiveData(statementID, statementText, numStakes, ethStaked, valueUSD, statementSource, timeRemainingFormatted, stakeButtonHTML, showCollapse);
+
+			var html = App.collapsingCardHTMLformatLiveData(statementID, statementText, numStakes, ethStaked, valueUSD, statementSource, timeRemainingFormatted, stakeButtonHTML, showCollapse, USDequivalentHTML);
 
 			popularLiveStakesCards.append(html);
 
@@ -250,17 +258,14 @@ App = {
 				var verdict = "False"
 			}
 
-			if (App.priceUSD != null) {
-				var valueUSD = '($' + Math.round(App.priceUSD*ethStaked) + ')';
-			}
-
 			// Value in USD
 			if (App.priceUSD == null) {
 				var valueUSD = '';
 			}
 			else {
-				var valueUSD = '($' + Math.round(App.priceUSD*ethStaked) + ')';
+				var valueUSD = '($' + Math.round(App.priceUSD*ethStaked) + ')';	
 			}
+
 
 			// Show top card expanded on load
 			var showCollapse = null;
@@ -285,7 +290,7 @@ App = {
 	},
 
 
-	collapsingCardHTMLformatLiveData: function(statementID, statementText, numStakes, ethStaked, valueUSD, statementSource, timeRemainingFormatted, stakeButtonHTML, showCollapse) {
+	collapsingCardHTMLformatLiveData: function(statementID, statementText, numStakes, ethStaked, valueUSD, statementSource, timeRemainingFormatted, stakeButtonHTML, showCollapse, USDequivalentHTML) {
 
 		var html = `<div class="card bg-transparent border-0 mb-3" id="card${statementID}">
 		                
@@ -301,7 +306,7 @@ App = {
 
 			                <div class="text-center">
 
-			                  	<form method="POST" onSubmit="App.makeStake(${statementID}, stakePosition${statementID}, stakeValue${statementID}); return false;">
+			                  	<form method="POST" id="stakeForm${statementID}" onSubmit="App.makeStake(${statementID}, stakePosition${statementID}, stakeValue${statementID}); return false;" oninput="USDequivalent${statementID}.value = Math.round(priceUSD.value * stakeValue${statementID}.value)">
 
 			                  		<div class="container">
 			                  			<div class="row">
@@ -325,7 +330,10 @@ App = {
 
 									    <div class="form-group row">
 									    	<div class="col-md-4 offset-md-4">
-										    	<input class="form-control text-center" type="number" id="stakeValue${statementID}" placeholder="0.750 ether" step="0.00001"/>
+									    		<span>
+											    	<input class="form-control text-center"  type="number" id="stakeValue${statementID}" placeholder="0.750 ether" step="0.00001"/>
+											    	${USDequivalentHTML}
+										    	</span>
 											</div>
 										</div>
 
