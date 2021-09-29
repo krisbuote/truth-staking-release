@@ -3,6 +3,8 @@
 
 Stake money on the truthfulness of claims made by the media.
 
+[truthstaking.com](truthstaking.com)
+
 --- WORK IN PROGRESS ---
 
 ## Requirements
